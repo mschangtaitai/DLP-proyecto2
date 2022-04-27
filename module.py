@@ -12,7 +12,7 @@ def eClosure(states, trans):
     while (added):
         added = False
         for i in trans:
-            if((i[2] not in response) and (i[1] == "E") and (i[0] in response)):
+            if((i[2] not in response) and (i[1] == "ε") and (i[0] in response)):
                 response.append(i[2])
                 added = True
     return response

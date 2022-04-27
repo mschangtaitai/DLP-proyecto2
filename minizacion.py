@@ -13,6 +13,8 @@ def minAFD(afd):
 
     added = True
     while(added):
+
+        
         added = False
         for i in partitions:
             if (len(i) > 1):
@@ -30,13 +32,18 @@ def minAFD(afd):
                                     else:
                                         newPart.append(j)
                     
-                    if(len(newPart)>0):
+                    if((len(newPart)>0) and (newPart not in partitions)):
                         for part in partitions:
+
                             partitions[partitions.index(part)] = list(set(part) - set(newPart))
+
+
+
                         partitions.append(newPart)
                         added = True
 
     for part in partitions:
+        
         removed = []
         for state in part:
             if part.index(state) > 0:
@@ -44,15 +51,18 @@ def minAFD(afd):
                 if state in start:
                     start.remove(state)
                     start.append(part[0])
-                if state in finals:
+                if (state in finals):
                     finals.remove(state)
+                elif ((state in finals) and (part[0] not in finals)):
                     finals.append(part[0])
 
 
             for tran in trans:
-                for k in tran:
-                    if k == state:
-                        trans[trans.index(tran)][tran.index(k)] = part[0]
+                if tran[0] == state:
+                    trans[trans.index(tran)][0] = part[0]
+                if tran[2] == state:
+                    trans[trans.index(tran)][2] = part[0]
+
 
     newTrans = []
 

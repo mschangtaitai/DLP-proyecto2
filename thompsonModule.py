@@ -2,7 +2,7 @@
 from math import fabs
 from re import A
 from module import *
-op = ["(", "*", "+", "|", ".", ")", "?"]
+op = ["(", "*", "+", "|", "©", ")", "?"]
 
 def getSigma(er, mainAFN):
     for i in er:
@@ -15,8 +15,8 @@ def createLeafs(er, afnList):
     num = 0
     for i in er:
         if (op.__contains__(i) == False):
-            initialS = "i" + i + str(num)
-            finalS = "f" + i + str(num)
+            initialS = "i" + i + "_" + str(num)
+            finalS = "f" + i + "_" + str(num)
             afnList.append(AF([initialS, finalS], [i], [[initialS,i,finalS]], [initialS], [finalS]))
             num += 1
 
@@ -26,7 +26,7 @@ def replaceConcat(er):
     cont = 0
     for i in er:
         if ((i == ")") or (i == "|") or (prev == "|") or (prev == "(") or (prev == "") or (i == "*") or (i == "+") or (i == "?")) == False:
-            newEr = newEr[:cont] + "." + newEr[cont:]
+            newEr = newEr[:cont] + "©" + newEr[cont:]
             cont += 1
         cont += 1
         prev = i
@@ -44,7 +44,7 @@ def replaceOps(er):
     return expresion
 
 def inToPos(infix):
-    specials = {'?': 7, '+': 6, '*': 5, '.': 4, '|': 3}
+    specials = {'?': 7, '+': 6, '*': 5, '©': 4, '|': 3}
 
     pofix = ""
     stack = ""
@@ -67,7 +67,7 @@ def inToPos(infix):
 
     while stack:
         pofix, stack = pofix + stack[-1], stack[:-1]
-        
+    
     return pofix
 
 
@@ -89,10 +89,10 @@ def opor(afn1,afn2):
     states = afn1.states + afn2.states + [newStart] + [newFinal]
     sigma = afn1.sigma + [i for i in afn2.sigma if i not in afn1.sigma]
     trans = afn1.trans + afn2.trans
-    trans.append([newStart,"E",afn1.start[0]])
-    trans.append([newStart,"E",afn2.start[0]])
-    trans.append([afn1.finals[0],"E",newFinal])
-    trans.append([afn2.finals[0],"E",newFinal])
+    trans.append([newStart,"ε",afn1.start[0]])
+    trans.append([newStart,"ε",afn2.start[0]])
+    trans.append([afn1.finals[0],"ε",newFinal])
+    trans.append([afn2.finals[0],"ε",newFinal])
 
     return AF(states,sigma,trans,[newStart],[newFinal])
 
@@ -102,10 +102,10 @@ def kleene(afn):
     states = afn.states + [newStart] + [newFinal]
     trans = afn.trans
 
-    trans.append([newStart,"E",afn.start[0]])
-    trans.append([afn.finals[0],"E",newFinal])
-    trans.append([afn.finals[0],"E",afn.start[0]])
-    trans.append([newStart,"E",newFinal])
+    trans.append([newStart,"ε",afn.start[0]])
+    trans.append([afn.finals[0],"ε",newFinal])
+    trans.append([afn.finals[0],"ε",afn.start[0]])
+    trans.append([newStart,"ε",newFinal])
 
     return AF(states,afn.sigma,trans,[newStart],[newFinal])
 
@@ -115,6 +115,6 @@ def plus(afn):
 def option(afn):
     trans = afn.trans
 
-    trans.append([afn.start[0],"E",afn.finals[0]])
+    trans.append([afn.start[0],"ε",afn.finals[0]])
 
     return AF(afn.states,afn.sigma,trans,afn.start,afn.finals)

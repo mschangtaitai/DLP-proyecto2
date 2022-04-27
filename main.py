@@ -32,3 +32,11 @@ afdminTest = afdSimulator(afdmin,w)
 final_time = time.time() - start_time
 print("Cumple con el AFD minimizado: " + str(afdminTest))
 print("Tiempo de validacion: " + str(final_time), end = "\n\n")
+
+# (0|1|2|3|4|5|6|7|8|9){(0|1|2|3|4|5|6|7|8|9)}.(0|1|2|3|4|5|6|7|8|9){(0|1|2|3|4|5|6|7|8|9)}
+# (a|b|c|d)(a|b|c|d)*.(a|b|c|d)(a|b|c|d)*
+# (a|b|c)(a|b|c)*.(a|b|c)(a|b|c)*
+# (a|b|c|d)*.(a|b|c|d|e|f|g|h|i)*
+# (a|b|c|d)*.(a|b|c|d)*
+# (0|1|2)(0|1|2)*.(0|1|2)(0|1|2)*
+# (a|b|c|d)*(e|f|g|h)*

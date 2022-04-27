@@ -10,7 +10,7 @@ def thompson(er):
     er = replaceOps(er)
     getSigma(er, mainAFN)
     createLeafs(er, afnList)
-    if ("." not in er):
+    if ("©" not in er):
         newEr = replaceConcat(er)
     else:
         newEr = er
@@ -35,7 +35,7 @@ def thompson(er):
                 afn = option(afnStack.pop())
                 afnStack.append(afn)
 
-            elif(i == "."):
+            elif(i == "©"):
                 afn2 = afnStack.pop()
                 afn1 = afnStack.pop()
 
