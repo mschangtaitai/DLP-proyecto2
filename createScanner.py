@@ -1,7 +1,7 @@
 from module import *
 from readFile import *
 
-combinedAF, tokenList, tokens, keys = readFile("Aritmetica.ATG")
+combinedAF, tokenList, tokens, keys = readFile("Double.ATG")
 
 AFStates = "['" + "', '".join(combinedAF.states) + "']"
 AFSigma = "['" + "', '".join(combinedAF.sigma) + "']"

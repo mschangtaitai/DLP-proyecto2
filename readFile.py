@@ -5,6 +5,7 @@ import time
 from afdSimulator import *
 from afnSimulator import *
 from cocorModule import *
+from thompsonModule import *
 
 def readFile(fileName):
     file = open(fileName, "r")
@@ -92,6 +93,13 @@ def readFile(fileName):
         print(i)
 
     afdList = []
+    print("READ FILE")
+    cont = 0
+    for t in tokens:
+        tokens[cont][1] = replaceOps(t[1])
+        cont += 1
+    print(tokens)
+    
 
     for i in range(len(tokens)):
         start_time = time.time()
@@ -115,6 +123,8 @@ def readFile(fileName):
         final_time = time.time() - start_time
         print(final_time)
         afdList.append(afdmin)
+    
+    
 
 
     return(combineAF(afdList) + [tokens] + [keys])

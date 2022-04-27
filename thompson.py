@@ -7,7 +7,6 @@ def thompson(er):
     afnList = []
     mainAFN = AF([], [], [], [], [])
 
-    er = replaceOps(er)
     getSigma(er, mainAFN)
     createLeafs(er, afnList)
     if ("©" not in er):

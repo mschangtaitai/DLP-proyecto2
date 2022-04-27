@@ -40,6 +40,11 @@ def replaceOps(er):
     expresion = expresion.replace("{","(")
     expresion = expresion.replace("]",")?")
     expresion = expresion.replace("}",")*")
+    expresion = expresion.replace("\n"," ╝") #Reemplazar ente
+    expresion = expresion.replace("\t","╦") #Reemplazar tab
+    expresion = expresion.replace("\r","║") #Reemplazar eol
+
+    print(expresion)
     
     return expresion
 
