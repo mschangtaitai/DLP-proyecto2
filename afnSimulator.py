@@ -4,8 +4,9 @@ from module import *
 def afnSimulator(afn, w):
     s = eClosure(afn.start,afn.trans)
     for i in w:
+        currentW += i
         s = eClosure(move(s,i,afn.trans),afn.trans)
-    
+
     for i in s:
         if i in afn.finals:
             return [True,i]
