@@ -1,7 +1,7 @@
 from module import *
 from readFile import *
 
-combinedAF, tokenList, tokens, keys = readFile("Double.ATG")
+combinedAF, tokenList, tokens, keys = readFile("2.atg")
 
 AFStates = "['" + "', '".join(combinedAF.states) + "']"
 AFSigma = "['" + "', '".join(combinedAF.sigma) + "']"
@@ -32,10 +32,14 @@ keysString = "keys = ["
 for i in keys:
     print(i)
     keysString += "['" + "', '".join(i) + "'],"
-keysString = keysString[:-1] + "]\n"
+if len(keys) > 0:
+    keysString = keysString[:-1] + "]\n"
+else:
+    keysString = keysString + "]\n"
 
 
-output = open("scanner.py", "w+")
+
+output = open("scanner.py", "w+", encoding="utf-8")
 output.write("""
 from module import *
 from afnSimulator2 import *
@@ -54,18 +58,22 @@ testFileName = input("Ingrese el nombre del archivo: ")
 file = open(testFileName, "r")
 lines = file.readlines()
 
+x = ''
 for line in lines:
-    response = (afnSimulator2(combinedAF,line, keyValues))
+    x = x + line        
 
-    cont = 0
-    for item in response:
-        for t in tokenList:
-            if (item == t[1]):
-                response[cont] = tokens[int(t[0])][0]
-        
-        cont += 1
+print('x')
+print(x)
 
-    print(response)
+response = (afnSimulator2(combinedAF, x, keyValues))
+cont = 0
+for item in response:
+    for t in tokenList:
+        if (item == t[1]):
+            response[cont] = tokens[int(t[0])][0]
+    
+    cont += 1
+print(response)
 """)
 
 

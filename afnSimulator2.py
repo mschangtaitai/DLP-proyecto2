@@ -2,6 +2,8 @@
 from module import *
 
 def afnSimulator2(afn, w, keys):
+    print("w")
+    print(w)
     currentW = ""
     s = eClosure(afn.start,afn.trans)
     response = []
@@ -20,6 +22,8 @@ def afnSimulator2(afn, w, keys):
                 if j in afn.finals:
                     response.append(j)
                     break
+                # else:
+                #     response.append("Error " + str(s))
             currentW = ""
             s = eClosure(afn.start,afn.trans)
     for j in prevS:
